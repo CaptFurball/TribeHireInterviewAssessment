@@ -43,19 +43,24 @@ class Post
      */
     public static function comments ()
     {
+        $resource = new JsonPlaceholder();
+
         $filters = [
             'postId'    => Flight::request()->query->post_id,
             'id'        => Flight::request()->query->comment_id,
             'name'      => Flight::request()->query->name,
-            'email'     => Flight::request()->query->email,
-            'body'      => Flight::request()->query->body,
+            'email'     => Flight::request()->query->email
         ];
 
-        $resource = new JsonPlaceholder();
-        
         $output = ArrayHelper::strictSearch(
             $resource->getComments()?: [], 
             $filters);
+
+        $filtersRegex = [
+            'body'      => Flight::request()->query->body,
+        ];
+           
+        $output = ArrayHelper::strictRegexSearch($output, $filtersRegex);
 
         Flight::json(
             [

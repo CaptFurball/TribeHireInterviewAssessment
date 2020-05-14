@@ -99,4 +99,32 @@ class ArrayHelper
             return $isMatched;
         });
     }
+
+    /**
+     * Performs strict REGEX search. Will only give result 
+     * if all attributes in an associative array
+     * are matched with the filter's key value pair.
+     * Will return all if filters are empty.
+     * 
+     * @var array $array The array
+     * @var string $filters The array of key value pair as filter
+     * 
+     * @return array Returns array of item which matches all the filters
+     */
+    public static function strictRegexSearch ($array, $filters)
+    {
+        return array_filter($array, function ($item) use ($filters) {
+            $isMatched = true;
+            foreach ($filters as $key => $value) {
+                if (empty($value)) continue;
+                
+                if (empty($item[$key]) || !preg_match("/$value/i", $item[$key]) ) {
+                    $isMatched = false;
+                    break;
+                }
+            }
+
+            return $isMatched;
+        });
+    }
 }
