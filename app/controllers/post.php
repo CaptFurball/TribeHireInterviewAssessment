@@ -16,7 +16,7 @@ class Post
         $resource = new JsonPlaceholder();
 
         $commentsByPostID = ArrayHelper::groupByAttr(
-            $resource->getComments(), 
+            $resource->getComments()?: [], 
             'postId');
 
         $output = [];
@@ -54,7 +54,7 @@ class Post
         $resource = new JsonPlaceholder();
         
         $output = ArrayHelper::strictSearch(
-            $resource->getComments(), 
+            $resource->getComments()?: [], 
             $filters);
 
         Flight::json(
