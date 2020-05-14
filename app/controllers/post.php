@@ -8,18 +8,22 @@ use \Flight;
 
 class Post 
 {
+    /**
+     * Retrieves posts sorted from the most comments to the least
+     */
     public static function sortByComments ()
     {
         $resource = new JsonPlaceholder();
 
-        $comments = $resource->getComments();
-        $commentsByPostID = ArrayHelper::groupByAttr($comments, 'postId');
+        $commentsByPostID = ArrayHelper::groupByAttr(
+            $resource->getComments(), 
+            'postId');
 
-        $posts = [];
+        $output = [];
         foreach ($commentsByPostID as $postID => $postComments) {
-            $post = $resource->getPostByID($postID);
+            $post = $resource->getStoredPostByID($postID);
 
-            array_push($posts, [
+            array_push($output, [
                 'post_id' => $post['id'],
                 'post_title' => $post['title'],
                 'post_body' => $post['body'],
@@ -29,11 +33,14 @@ class Post
 
         Flight::json(
             [
-                'msg' => ArrayHelper::sortDescByAttr($posts, 'total_number_of_comments')
+                'msg' => ArrayHelper::sortDescByAttr($output, 'total_number_of_comments')
             ]
         );
     }
 
+    /**
+     * Retrieves comments for post with filter in query string
+     */
     public static function comments ()
     {
         $filters = [
@@ -45,13 +52,14 @@ class Post
         ];
 
         $resource = new JsonPlaceholder();
-        $comments = $resource->getComments();
         
-        $filteredComments = ArrayHelper::strictSearch($comments, $filters);
+        $output = ArrayHelper::strictSearch(
+            $resource->getComments(), 
+            $filters);
 
         Flight::json(
             [
-                'msg' => $filteredComments
+                'msg' => $output
             ]
         );
     }
