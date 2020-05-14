@@ -1,0 +1,14 @@
+{
+    "name": "captfurball/tribehire-assessment",
+    "description": "TribeHire interview assessment",
+    "authors": [
+        {
+            "name": "Edward Lim",
+            "email": "elys.1993a@gmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.5",
+        "mikecao/flight": "^1.3"
+    }
+}
