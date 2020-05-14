@@ -14,4 +14,4 @@ Question 1: Return a list of top posts ordered by the number of comments. Consum
 Answer URL: /api/v1/posts/sort/comments
 
 Question 2: Search API Create an endpoint that allows a user to filter the comments based on all the available fields. Your solution needs to be scalable.
-Answer URL: /api/v1/comments?post_id=<id-of-the-post>&comment_id=<id-of-the-comment>&name=<name-of-the-user>&email=<email-of-the-user>
+Answer URL: /api/v1/comments?post_id=<id-of-the-post>&comment_id=<id-of-the-comment>&name=<name-of-the-user>&email=<email-of-the-user>&body=<partial-text-of-body>
